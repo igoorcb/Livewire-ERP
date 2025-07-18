@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: montink-erp-app
+    container_name: montink-erp-app
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - mailpit
+    environment:
+      - DB_HOST=db
+      - DB_DATABASE=montink
+      - DB_USERNAME=root
+      - DB_PASSWORD=root
+
+  db:
+    image: mysql:8.0
+    container_name: montink-erp-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: montink
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  mailpit:
+    image: axllent/mailpit
+    container_name: montink-erp-mailpit
+    ports:
+      - "8025:8025"  
+      - "1025:1025" 
+
+volumes:
+  db_data:
