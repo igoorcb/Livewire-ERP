@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Variacao extends Model
 {
+    protected $table = 'variacoes';
+    
     protected $fillable = ['produto_id', 'nome', 'preco_extra'];
 
     public function produto()
