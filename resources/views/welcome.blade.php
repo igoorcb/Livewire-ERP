@@ -16,6 +16,8 @@
                 Montink ERP
             </a>
             <div class="navbar-nav ms-auto">
+                <a href="#" class="nav-link" onclick="showSection('produtos')">Produtos</a>
+                <a href="#" class="nav-link" onclick="showSection('carrinho')">Carrinho</a>
                 <span class="navbar-text">
                     Sistema de Gestão
                 </span>
@@ -25,7 +27,12 @@
     
     <main class="py-5">
         <div class="container">
-            @livewire('produto-manager')
+            <div id="produtos-section">
+                @livewire('produto-manager')
+            </div>
+            <div id="carrinho-section" style="display: none;">
+                @livewire('carrinho')
+            </div>
         </div>
     </main>
     
@@ -34,6 +41,18 @@
             <small>&copy; 2024 Montink ERP. Todos os direitos reservados.</small>
         </div>
     </footer>
+    
+    <script>
+        function showSection(section) {
+            if (section === 'produtos') {
+                document.getElementById('produtos-section').style.display = 'block';
+                document.getElementById('carrinho-section').style.display = 'none';
+            } else {
+                document.getElementById('produtos-section').style.display = 'none';
+                document.getElementById('carrinho-section').style.display = 'block';
+            }
+        }
+    </script>
     
     @livewireScripts
 </body>
